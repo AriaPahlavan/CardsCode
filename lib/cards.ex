@@ -1,6 +1,8 @@
 defmodule Cards do
   def create_deck do
-    values = ["Ace", "Two", "Three", "Four", "Five"]
+    values = ["Ace", "Two", "Three", "Four", "Five",
+              "Six", "Seven", "Eight", "Nine", "Ten",
+              "Jack", "Queen", "King"]
     suits = ["Spades", "Clubs", "Hearts", "Diamonds"]
 
     # Solution No. 2
@@ -36,11 +38,17 @@ defmodule Cards do
   end
 
   def load(filename) do
-    {status, binary} = File.read(filename)
-    case status do
-      :ok -> :erlang.binary_to_term(binary)
-      :error -> "File does not exist!"
+    case File.read(filename) do
+      {:ok, binary} -> :erlang.binary_to_term binary
+      # underscore at the beginning of the var
+      # specifies that it will not be used...
+      {:error, _error_msg} -> "File does not exist!"
     end
+  end
 
+  def create_hand(hand_size) do
+    Cards.create_deck
+    |> Cards.shuffle
+    |> Cards.deal(hand_size)
   end
 end
