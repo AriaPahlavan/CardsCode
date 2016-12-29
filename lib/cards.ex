@@ -33,6 +33,15 @@ defmodule Cards do
   end
 
 
+  @doc """
+    Determines whether `deck` contains `card`.
+
+  ## Examples
+
+      iex> deck = Cards.create_deck
+      iex> Cards.contains?(deck, "Ace of Spades")
+      true
+  """
   def contains?(deck, card) do
     Enum.member?(deck, card)
   end
@@ -45,7 +54,7 @@ defmodule Cards do
 
   ## Examples
 
-      iex> deck = Cards.create_hand
+      iex> deck = Cards.create_deck
       iex> {hand, remainder} = Cards.deal(deck, 1)
       iex> hand
       ["Ace of Spades"]
@@ -84,11 +93,15 @@ defmodule Cards do
 
   ## Examples
 
-      iex> {hand, remainder} = Cards.create_hand(1)
-      iex> hand
-      ["Jack of Clubs"]
+      # iex> {hand, remainder} = Cards.create_hand(1)
+      # iex> hand
+      # ["Jack of Clubs"]
   """
   def create_hand(hand_size) do
+    # method 1
+    # Cards.deal(Cards.shuffle(Cards.create_deck), hand_size)
+
+    # method 2 (better method)
     Cards.create_deck
     |> Cards.shuffle
     |> Cards.deal(hand_size)
