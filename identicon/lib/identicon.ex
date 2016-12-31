@@ -4,6 +4,10 @@ defmodule Identicon do
   @square_size 50
   @grid_size 250
 
+  def main do
+    main "ariapr"
+  end
+
   def main(name) do
     name
     |> hash_input
